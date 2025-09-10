@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercícios de Automação</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
+        .section {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 15px;
+        }
+        #message, #taskMessage {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+        .remove-btn {
+            margin-left: 10px;
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Usuário">
+        <input type="password" id="password" placeholder="Senha">
+        <button id="loginBtn">Login</button>
+        <div id="message"></div>
+
+        <div class="section">
+            <h3>Selecione seus interesses</h3>
+            <label><input type="checkbox" id="cb1"> Programação</label><br>
+            <label><input type="checkbox" id="cb2"> Testes</label><br>
+            <label><input type="checkbox" id="cb3"> Automação</label>
+        </div>
+
+        <div class="section">
+            <h3>Selecione seu gênero</h3>
+            <label><input type="radio" name="gender" value="Masculino"> Masculino</label><br>
+            <label><input type="radio" name="gender" value="Feminino"> Feminino</label><br>
+            <label><input type="radio" name="gender" value="Outro"> Outro</label>
+        </div>
+
+        <div class="section">
+            <h3>Selecione seu país</h3>
+            <select id="country">
+                <option value="">Selecione...</option>
+                <option value="Brasil">Brasil</option>
+                <option value="Portugal">Portugal</option>
+                <option value="EUA">EUA</option>
+                <option value="Canadá">Canadá</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <h3>Lista de tarefas</h3>
+            <input type="text" id="taskInput" placeholder="Nova tarefa">
+            <button id="addTaskBtn">Adicionar</button>
+            <ul id="taskList"></ul>
+            <div id="taskMessage"></div>
+        </div>
+    </div>
+
+    <script>
+        // Login
+        document.getElementById("loginBtn").addEventListener("click", function() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const message = document.getElementById("message");
+
+            if(username === "admin" && password === "1234") {
+                message.textContent = "Login bem-sucedido!";
+                message.style.color = "green";
+            } else {
+                message.textContent = "Usuário ou senha incorretos.";
+                message.style.color = "red";
+            }
+        });
+
+        // Lista de tarefas
+        const addTaskBtn = document.getElementById("addTaskBtn");
+        const taskList = document.getElementById("taskList");
+        const taskMessage = document.getElementById("taskMessage");
+
+        addTaskBtn.addEventListener("click", function() {
+            const taskInput = document.getElementById("taskInput");
+            const task = taskInput.value.trim();
+            if(task === "") {
+                taskMessage.textContent = "Digite uma tarefa!";
+                taskMessage.style.color = "red";
+                return;
+            }
+
+            const li = document.createElement("li");
+            li.textContent = task;
+
+            const removeBtn = document.createElement("span");
+            removeBtn.textContent = " [remover]";
+            removeBtn.className = "remove-btn";
+            removeBtn.addEventListener("click", () => li.remove());
+
+            li.appendChild(removeBtn);
+            taskList.appendChild(li);
+
+            taskInput.value = "";
+            taskMessage.textContent = "Tarefa adicionada!";
+            taskMessage.style.color = "green";
+        });
+    </script>
+</body>
+</html>
